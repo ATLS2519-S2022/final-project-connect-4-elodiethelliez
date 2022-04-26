@@ -1,7 +1,7 @@
 /**
- * A Connect-4 player that makes move based on best next move.
+ * A Connect-4 player that makes move based on minimax strategy to look several steps into the future
  * 
- * @author Daniel Szafir
+ * @author Daniel Szafir & elodie thelliez
  *
  */
 public class MinimaxPlayer implements Player

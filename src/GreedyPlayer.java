@@ -1,7 +1,7 @@
 /**
  * A Connect-4 player that makes move based on best next move.
  * 
- * @author Daniel Szafir
+ * @author Daniel Szafir & elodie thelliez
  *
  */
 public class GreedyPlayer implements Player
@@ -43,7 +43,7 @@ public class GreedyPlayer implements Player
         int col;
         int currentScore = 0;
         int max = -100;
-        int maxCol = 0;
+        int maxCol = 0; 
         
         for(col = 0; col < cols; col++) {
         	if(board.isValidMove(col)) {
