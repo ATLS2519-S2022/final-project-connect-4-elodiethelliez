@@ -11,8 +11,6 @@ public class ABPlayer implements Player
     int id; //to use locally
     int opponent_id;
     int cols;
-//    int alpha;
-//    int beta;
     
 
     @Override
@@ -56,8 +54,16 @@ public class ABPlayer implements Player
         			
         	for(int i = 0; i < cols; i++ ) {
     			if(board.isValidMove(i)) {
+    				
 	    			//check for valid move
 	    			board.move(i, id); //for your player;
+	    			currentScore = alphabeta(board, maxDepth - 1, alpha, beta, false, arb);
+	    			
+	    			if (currentScore > bestScore) {
+        				bestScore = currentScore;
+        				move = i;
+        			}
+	    			
 	    			bestScore = Math.max(bestScore,  alphabeta(board, maxDepth - 1, alpha, beta, false, arb));
 	    			alpha = Math.max(alpha, bestScore);
 	    			
@@ -68,8 +74,8 @@ public class ABPlayer implements Player
     			}
     		}
         	
-        maxDepth++;
         arb.setMove(move);
+        maxDepth++;
         	
         }
     }
@@ -101,6 +107,7 @@ public class ABPlayer implements Player
 	    			board.unmove(i, id);
     			}
     		}
+    		System.out.println("returning maximize score");
     		return bestScore;
     	}
     
@@ -120,6 +127,7 @@ public class ABPlayer implements Player
     				board.unmove(i, opponent_id);
     			}
     		}
+    		System.out.println("returning minimize score");
     		return bestScore;
     	}
     }
