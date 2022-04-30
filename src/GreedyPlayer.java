@@ -32,8 +32,6 @@ public class GreedyPlayer implements Player
         if (board.isFull()) {
             throw new Error ("Complaint: The board is full!");
         }
-        
-
 //        For each move:
 //            Temporarily make the move using board.move()
 //            Calculate a score based on how the board is for you now that you've made the move
@@ -41,8 +39,8 @@ public class GreedyPlayer implements Player
 //        Return the move that had the highest calculated score
         
         int col;
-        int currentScore = 0;
-        int max = -100;
+        int currentScore;
+        int max = -1000;
         int maxCol = 0; 
         
         for(col = 0; col < cols; col++) {
@@ -51,15 +49,13 @@ public class GreedyPlayer implements Player
         		currentScore = calcScore(board, id);
         		
         		if (currentScore > max) {
-        			max = currentScore;
+        			//max = currentScore;
         			maxCol = col;
-        			System.out.println("max score: " + max + " in column: " + maxCol);
+        			//System.out.println("max score: " + max + " in column: " + maxCol);
         		}
         		
         		board.unmove(col, id);
         	}
-
-        	
         }
            
         arb.setMove(maxCol);

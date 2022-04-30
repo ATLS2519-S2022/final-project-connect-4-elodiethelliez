@@ -43,11 +43,9 @@ public class MinimaxPlayer implements Player
         //while there is time remaining and search depth <= number of moves remaining
         while(!arb.isTimeUp() && maxDepth <= board.numEmptyCells()) {
         	//run FIRST LEVEL of minimax search and set move to be column corresponding to best score
-        	//can uses tree or use recursively
-        	
-  
+
         	int bestScore = -1000;
-        	int currentScore = 0;
+        	int currentScore;
         	//compare to best score
         	//update best score accordingly
         			
@@ -57,18 +55,14 @@ public class MinimaxPlayer implements Player
         			currentScore = minimax(board, maxDepth - 1, false, arb);
     			
         			if (currentScore > bestScore) {
-        				bestScore = currentScore;
+        				//bestScore = currentScore;
         				move = i;
         			}
-        			
     			board.unmove(i, id);
-    			
         		}
-        	
         	}
         	maxDepth++;
         	arb.setMove(move);
-        	
         }
     }
     

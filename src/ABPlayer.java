@@ -11,6 +11,8 @@ public class ABPlayer implements Player
     int id; //to use locally
     int opponent_id;
     int cols;
+    int alpha;
+    int beta;
     
 
     @Override
@@ -23,7 +25,6 @@ public class ABPlayer implements Player
     	this.id = id; //id is player's id, opponent's id is 3-id
     	opponent_id = 3-id;
     	this.cols = cols;
-    	//don't really need to access the rows
     }
 
     @Override
@@ -35,20 +36,18 @@ public class ABPlayer implements Player
         if (board.isFull()) {
             throw new Error ("Complaint: The board is full!");
         }
-   
         
         int move = 0;
         int maxDepth = 1;
-        int alpha = 0;
-        int beta = 0;
-        
+//        int alpha = 0;
+//        int beta = 0;
+//        
         //while there is time remaining and search depth <= number of moves remaining
         while(!arb.isTimeUp() && maxDepth <= board.numEmptyCells()) {
         	//run FIRST LEVEL of alpha beta search and set move to be column corresponding to best score
-        	
   
         	int bestScore = -1000;
-        	int currentScore = 0;
+        	int currentScore; //temporary storage variable
         	//compare to best score
         	//update best score accordingly
         			
@@ -60,11 +59,11 @@ public class ABPlayer implements Player
 	    			currentScore = alphabeta(board, maxDepth - 1, alpha, beta, false, arb);
 	    			
 	    			if (currentScore > bestScore) {
-        				bestScore = currentScore;
+        				//bestScore = currentScore;
         				move = i;
         			}
 	    			
-	    			bestScore = Math.max(bestScore,  alphabeta(board, maxDepth - 1, alpha, beta, false, arb));
+	    			bestScore = Math.max(bestScore,  currentScore);
 	    			alpha = Math.max(alpha, bestScore);
 	    			
 	    			if (alpha >= beta) {
@@ -84,14 +83,12 @@ public class ABPlayer implements Player
     //iterative deepening minimax with alpha beta pruning
     public int alphabeta(Connect4Board board, int depth, int alpha, int beta, boolean isMaximizing, Arbitrator arb) {
     	
-    	int bestScore;
-    	
     	if(depth == 0 || board.isFull() || arb.isTimeUp()) {
     		return calcScore(board,id) - calcScore(board,opponent_id); //extra credit to improve this score calculation
     	}
     	
     	if (isMaximizing) {
-    		bestScore = -1000;
+    		int bestScore = -1000;
     		
     		for(int i = 0; i < cols; i++ ) {
     			if(board.isValidMove(i)) {
@@ -101,18 +98,18 @@ public class ABPlayer implements Player
 	    			alpha = Math.max(alpha, bestScore);
 	    			
 	    			if (alpha >= beta) {
-	    				System.out.println("code got to alpha break");
+	    				//System.out.println("code got to alpha break");
 	    				break;
 	    			}
 	    			board.unmove(i, id);
     			}
     		}
-    		System.out.println("returning maximize score");
+    		//System.out.println("returning maximize score");
     		return bestScore;
     	}
     
     	else {
-    		bestScore = 1000;
+    		int bestScore = 1000;
     		
     		for(int i = 0; i < cols; i++ ) {
     			if(board.isValidMove(i)) {
@@ -121,13 +118,13 @@ public class ABPlayer implements Player
     				beta = Math.min(beta, bestScore);
     			
     				if(alpha >= beta) {
-    					System.out.println("code got to alpha break");
+    					//System.out.println("code got to alpha break");
     					break;
     				}	
     				board.unmove(i, opponent_id);
     			}
     		}
-    		System.out.println("returning minimize score");
+    		//System.out.println("returning minimize score");
     		return bestScore;
     	}
     }
