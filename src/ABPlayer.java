@@ -59,7 +59,7 @@ public class ABPlayer implements Player
 	    			currentScore = alphabeta(board, maxDepth - 1, alpha, beta, false, arb);
 	    			
 	    			if (currentScore > bestScore) {
-        				//bestScore = currentScore;
+        				bestScore = currentScore;
         				move = i;
         			}
 	    			

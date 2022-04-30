@@ -55,7 +55,7 @@ public class MinimaxPlayer implements Player
         			currentScore = minimax(board, maxDepth - 1, false, arb);
     			
         			if (currentScore > bestScore) {
-        				//bestScore = currentScore;
+        				bestScore = currentScore;
         				move = i;
         			}
     			board.unmove(i, id);

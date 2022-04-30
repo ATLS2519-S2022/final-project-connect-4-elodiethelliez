@@ -49,7 +49,7 @@ public class GreedyPlayer implements Player
         		currentScore = calcScore(board, id);
         		
         		if (currentScore > max) {
-        			//max = currentScore;
+        			max = currentScore;
         			maxCol = col;
         			//System.out.println("max score: " + max + " in column: " + maxCol);
         		}
